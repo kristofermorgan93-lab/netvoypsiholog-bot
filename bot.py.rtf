@@ -1,0 +1,329 @@
+{\rtf1\ansi\ansicpg1251\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab560
+\pard\pardeftab560\slleading20\partightenfactor0
+
+\f0\fs26 \cf0 import telebot\
+from telebot import types\
+import time\
+\
+# \uc0\u1058 \u1042 \u1054 \u1049  \u1058 \u1054 \u1050 \u1045 \u1053 \
+TOKEN = '8494674247:AAFO96427XyBLVzZh-Xl07UwMEDz4db2sr0'\
+\
+# ID \uc0\u1058 \u1042 \u1054 \u1045 \u1043 \u1054  \u1050 \u1040 \u1053 \u1040 \u1051 \u1040 \
+CHANNEL_ID = '@netvoipsiholog'  # \uc0\u1080 \u1083 \u1080  \u1095 \u1080 \u1089 \u1083 \u1086 \u1074 \u1086 \u1081  ID \u1082 \u1072 \u1085 \u1072 \u1083 \u1072 \
+\
+# \uc0\u1055 \u1056 \u1040 \u1050 \u1058 \u1048 \u1050 \u1048  \u1048  \u1058 \u1045 \u1057 \u1058 \u1067  (\u1088 \u1072 \u1079 \u1073 \u1080 \u1090 \u1099  \u1087 \u1086  \u1082 \u1072 \u1090 \u1077 \u1075 \u1086 \u1088 \u1080 \u1103 \u1084 )\
+PRACTICES = \{\
+    # \uc0\u1055 \u1056 \u1040 \u1050 \u1058 \u1048 \u1050 \u1048 \
+    'letter_to_mother': \{\
+        'name': '\uc0\u55357 \u56425 \u8205 \u55356 \u57212  \u1055 \u1080 \u1089 \u1100 \u1084 \u1086  \u1084 \u1072 \u1090 \u1077 \u1088 \u1080 ',\
+        'link': 'https://t.me/netvoipsiholog/25',\
+        'category': 'practices'\
+    \},\
+    'transformation_map': \{\
+        'name': '\uc0\u55358 \u56813  \u1050 \u1072 \u1088 \u1090 \u1072  \u1058 \u1088 \u1072 \u1085 \u1089 \u1092 \u1086 \u1088 \u1084 \u1072 \u1094 \u1080 \u1080 ',\
+        'link': 'https://t.me/netvoipsiholog/30',\
+        'category': 'practices'\
+    \},\
+    'year_closure': \{\
+        'name': '\uc0\u55357 \u56517  \u1047 \u1072 \u1082 \u1088 \u1099 \u1090 \u1080 \u1077  \u1075 \u1086 \u1076 \u1072 ',\
+        'link': 'https://t.me/c/3218564921/14',\
+        'category': 'practices'\
+    \},\
+    'shadow_diary': \{\
+        'name': '\uc0\u55357 \u56740  \u1044 \u1085 \u1077 \u1074 \u1085 \u1080 \u1082  \u1090 \u1077 \u1085 \u1080 ',\
+        'link': 'https://t.me/netvoipsiholog/24',\
+        'category': 'practices'\
+    \},\
+    'letter_to_father': \{\
+        'name': '\uc0\u55357 \u56424 \u8205 \u55356 \u57212  \u1055 \u1080 \u1089 \u1100 \u1084 \u1086  \u1086 \u1090 \u1094 \u1091 ',\
+        'link': 'https://t.me/netvoipsiholog/32',\
+        'category': 'practices'\
+    \},\
+    'neuro_reboot': \{\
+        'name': '\uc0\u9889  \u1053 \u1077 \u1081 \u1088 \u1086 \u1087 \u1077 \u1088 \u1077 \u1074 \u1086 \u1088 \u1086 \u1090 ',\
+        'link': 'https://t.me/netvoipsiholog/33',\
+        'category': 'practices'\
+    \},\
+    \
+    # \uc0\u1058 \u1045 \u1057 \u1058 \u1067 \
+    'ready_for_relations': \{\
+        'name': '\uc0\u10084 \u65039  \u1043 \u1086 \u1090 \u1086 \u1074  \u1083 \u1080  \u1090 \u1099  \u1082  \u1079 \u1076 \u1086 \u1088 \u1086 \u1074 \u1099 \u1084  \u1086 \u1090 \u1085 \u1086 \u1096 \u1077 \u1085 \u1080 \u1103 \u1084 ?',\
+        'link': 'https://t.me/netvoipsiholog/26',\
+        'category': 'tests'\
+    \},\
+    'rejection_trauma': \{\
+        'name': '\uc0\u55357 \u57003  \u1058 \u1088 \u1072 \u1074 \u1084 \u1072  \u1086 \u1090 \u1074 \u1077 \u1088 \u1078 \u1077 \u1085 \u1080 \u1103 ',\
+        'link': 'https://t.me/netvoipsiholog/53',\
+        'category': 'tests'\
+    \},\
+    'attachment_type': \{\
+        'name': '\uc0\u55357 \u56599  \u1058 \u1080 \u1087  \u1087 \u1088 \u1080 \u1074 \u1103 \u1079 \u1072 \u1085 \u1085 \u1086 \u1089 \u1090 \u1080 ',\
+        'link': 'https://t.me/netvoipsiholog/75',\
+        'category': 'tests'\
+    \}\
+\}\
+\
+bot = telebot.TeleBot(TOKEN)\
+\
+# \uc0\u1060 \u1091 \u1085 \u1082 \u1094 \u1080 \u1103  \u1087 \u1088 \u1086 \u1074 \u1077 \u1088 \u1082 \u1080  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1082 \u1080 \
+def check_subscription(user_id):\
+    try:\
+        member = bot.get_chat_member(CHANNEL_ID, user_id)\
+        return member.status in ['creator', 'administrator', 'member']\
+    except:\
+        return False\
+\
+# \uc0\u1050 \u1085 \u1086 \u1087 \u1082 \u1072  \u1089  \u1089 \u1089 \u1099 \u1083 \u1082 \u1086 \u1081  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 \
+def subscription_button():\
+    markup = types.InlineKeyboardMarkup()\
+    btn = types.InlineKeyboardButton(\
+        "\uc0\u55357 \u56546  \u1055 \u1086 \u1076 \u1087 \u1080 \u1089 \u1072 \u1090 \u1100 \u1089 \u1103  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 ", \
+        url=f"https://t.me/\{CHANNEL_ID.replace('@', '')\}"\
+    )\
+    check_btn = types.InlineKeyboardButton("\uc0\u9989  \u1071  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1072 \u1083 \u1089 \u1103 ", callback_data="check_sub")\
+    markup.add(btn)\
+    markup.add(check_btn)\
+    return markup\
+\
+# \uc0\u1043 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102  (\u1074 \u1099 \u1073 \u1086 \u1088  \u1082 \u1072 \u1090 \u1077 \u1075 \u1086 \u1088 \u1080 \u1080 )\
+def main_menu():\
+    markup = types.InlineKeyboardMarkup(row_width=2)\
+    practices_btn = types.InlineKeyboardButton("\uc0\u55358 \u56792  \u1055 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 ", callback_data="category_practices")\
+    tests_btn = types.InlineKeyboardButton("\uc0\u55357 \u56522  \u1058 \u1077 \u1089 \u1090 \u1099 ", callback_data="category_tests")\
+    info_btn = types.InlineKeyboardButton("\uc0\u8505 \u65039  \u1054  \u1082 \u1072 \u1085 \u1072 \u1083 \u1077 ", callback_data="info")\
+    markup.add(practices_btn, tests_btn)\
+    markup.add(info_btn)\
+    return markup\
+\
+# \uc0\u1052 \u1077 \u1085 \u1102  \u1089  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1072 \u1084 \u1080 \
+def practices_menu():\
+    markup = types.InlineKeyboardMarkup(row_width=1)\
+    # \uc0\u1044 \u1086 \u1073 \u1072 \u1074 \u1083 \u1103 \u1077 \u1084  \u1090 \u1086 \u1083 \u1100 \u1082 \u1086  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 \
+    for practice_id, practice in PRACTICES.items():\
+        if practice['category'] == 'practices':\
+            btn = types.InlineKeyboardButton(practice['name'], callback_data=f"item_\{practice_id\}")\
+            markup.add(btn)\
+    \
+    # \uc0\u1050 \u1085 \u1086 \u1087 \u1082 \u1072  \u1074 \u1086 \u1079 \u1074 \u1088 \u1072 \u1090 \u1072  \u1074  \u1075 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 \
+    back_btn = types.InlineKeyboardButton("\uc0\u9664 \u65039  \u1042  \u1075 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 ", callback_data="back_to_main")\
+    markup.add(back_btn)\
+    return markup\
+\
+# \uc0\u1052 \u1077 \u1085 \u1102  \u1089  \u1090 \u1077 \u1089 \u1090 \u1072 \u1084 \u1080 \
+def tests_menu():\
+    markup = types.InlineKeyboardMarkup(row_width=1)\
+    # \uc0\u1044 \u1086 \u1073 \u1072 \u1074 \u1083 \u1103 \u1077 \u1084  \u1090 \u1086 \u1083 \u1100 \u1082 \u1086  \u1090 \u1077 \u1089 \u1090 \u1099 \
+    for test_id, test in PRACTICES.items():\
+        if test['category'] == 'tests':\
+            btn = types.InlineKeyboardButton(test['name'], callback_data=f"item_\{test_id\}")\
+            markup.add(btn)\
+    \
+    # \uc0\u1050 \u1085 \u1086 \u1087 \u1082 \u1072  \u1074 \u1086 \u1079 \u1074 \u1088 \u1072 \u1090 \u1072  \u1074  \u1075 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 \
+    back_btn = types.InlineKeyboardButton("\uc0\u9664 \u65039  \u1042  \u1075 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 ", callback_data="back_to_main")\
+    markup.add(back_btn)\
+    return markup\
+\
+# \uc0\u1055 \u1088 \u1080 \u1074 \u1077 \u1090 \u1089 \u1090 \u1074 \u1080 \u1077  \u1076 \u1083 \u1103  \u1085 \u1086 \u1074 \u1099 \u1093  \u1087 \u1086 \u1083 \u1100 \u1079 \u1086 \u1074 \u1072 \u1090 \u1077 \u1083 \u1077 \u1081 \
+@bot.message_handler(commands=['start'])\
+def send_welcome(message):\
+    user_id = message.from_user.id\
+    first_name = message.from_user.first_name\
+    \
+    # \uc0\u1055 \u1088 \u1086 \u1074 \u1077 \u1088 \u1103 \u1077 \u1084 , \u1077 \u1089 \u1090 \u1100  \u1083 \u1080  \u1074  \u1082 \u1086 \u1084 \u1072 \u1085 \u1076 \u1077  \u1087 \u1072 \u1088 \u1072 \u1084 \u1077 \u1090 \u1088  (\u1082 \u1086 \u1090 \u1080 \u1082 \u1086 \u1074 \u1086 \u1077  \u1089 \u1083 \u1086 \u1074 \u1086  \u1080 \u1079  TikTok)\
+    args = message.text.split()\
+    ref_source = "TikTok" if len(args) > 1 else "\uc0\u1087 \u1088 \u1103 \u1084 \u1086 \u1075 \u1086  \u1087 \u1077 \u1088 \u1077 \u1093 \u1086 \u1076 \u1072 "\
+    \
+    welcome_text = f"""\uc0\u55358 \u56813  *\u1053 \u1040 \u1042 \u1048 \u1043 \u1040 \u1062 \u1048 \u1071  \u1055 \u1054  \u1055 \u1056 \u1040 \u1050 \u1058 \u1048 \u1050 \u1040 \u1052  \u1048  \u1058 \u1045 \u1057 \u1058 \u1040 \u1052 *\
+\
+\uc0\u55356 \u57119  \u1055 \u1088 \u1080 \u1074 \u1077 \u1090 , \{first_name\}!\
+\
+\uc0\u1056 \u1072 \u1076 \u1099  \u1074 \u1080 \u1076 \u1077 \u1090 \u1100  \u1090 \u1077 \u1073 \u1103  \u1089  \{ref_source\}! \u55357 \u56395 \
+\
+\uc0\u1044 \u1086 \u1073 \u1088 \u1086  \u1087 \u1086 \u1078 \u1072 \u1083 \u1086 \u1074 \u1072 \u1090 \u1100 ! \u1047 \u1076 \u1077 \u1089 \u1100  \u1089 \u1086 \u1073 \u1088 \u1072 \u1085 \u1099  \u1074 \u1089 \u1077  \u1082 \u1083 \u1102 \u1095 \u1077 \u1074 \u1099 \u1077  \u1084 \u1072 \u1090 \u1077 \u1088 \u1080 \u1072 \u1083 \u1099  \u1076 \u1083 \u1103  \u1090 \u1074 \u1086 \u1077 \u1075 \u1086  \u1088 \u1086 \u1089 \u1090 \u1072 . \u1055 \u1086 \u1076 \u1087 \u1080 \u1089 \u1099 \u1074 \u1072 \u1081 \u1089 \u1103  \'97 \u1074 \u1087 \u1077 \u1088 \u1077 \u1076 \u1080  \u1077 \u1097 \u1105  \u1073 \u1086 \u1083 \u1100 \u1096 \u1077  \u1090 \u1077 \u1093 \u1085 \u1080 \u1082  \u1087 \u1086  \u1087 \u1089 \u1080 \u1093 \u1086 \u1083 \u1086 \u1075 \u1080 \u1080 , \u1086 \u1090 \u1085 \u1086 \u1096 \u1077 \u1085 \u1080 \u1103 \u1084  \u1080  \u1085 \u1077 \u1081 \u1088 \u1086 \u1087 \u1077 \u1088 \u1077 \u1074 \u1086 \u1088 \u1086 \u1090 \u1072 \u1084 !\
+\
+*\uc0\u1063 \u1090 \u1086 \u1073 \u1099  \u1087 \u1086 \u1083 \u1091 \u1095 \u1080 \u1090 \u1100  \u1076 \u1086 \u1089 \u1090 \u1091 \u1087  \u1082  \u1084 \u1072 \u1090 \u1077 \u1088 \u1080 \u1072 \u1083 \u1072 \u1084 , \u1085 \u1091 \u1078 \u1085 \u1086  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1072 \u1090 \u1100 \u1089 \u1103  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 :*\
+\
+\uc0\u55357 \u56391  \u1053 \u1072 \u1078 \u1084 \u1080  \u1082 \u1085 \u1086 \u1087 \u1082 \u1091  \u1085 \u1080 \u1078 \u1077 , \u1095 \u1090 \u1086 \u1073 \u1099  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1072 \u1090 \u1100 \u1089 \u1103 """\
+    \
+    bot.send_message(\
+        message.chat.id, \
+        welcome_text, \
+        parse_mode='Markdown',\
+        reply_markup=subscription_button()\
+    )\
+\
+# \uc0\u1054 \u1073 \u1088 \u1072 \u1073 \u1086 \u1090 \u1082 \u1072  \u1085 \u1072 \u1078 \u1072 \u1090 \u1080 \u1103  \u1085 \u1072  "\u1071  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1072 \u1083 \u1089 \u1103 "\
+@bot.callback_query_handler(func=lambda call: call.data == "check_sub")\
+def check_sub_callback(call):\
+    user_id = call.from_user.id\
+    \
+    if check_subscription(user_id):\
+        welcome_text = """\uc0\u9989  *\u1054 \u1090 \u1083 \u1080 \u1095 \u1085 \u1086 ! \u1055 \u1086 \u1076 \u1087 \u1080 \u1089 \u1082 \u1072  \u1087 \u1086 \u1076 \u1090 \u1074 \u1077 \u1088 \u1078 \u1076 \u1077 \u1085 \u1072 *\
+\
+\uc0\u55358 \u56813  *\u1044 \u1086 \u1073 \u1088 \u1086  \u1087 \u1086 \u1078 \u1072 \u1083 \u1086 \u1074 \u1072 \u1090 \u1100  \u1074  \u1085 \u1072 \u1074 \u1080 \u1075 \u1072 \u1090 \u1086 \u1088  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082  \u1080  \u1090 \u1077 \u1089 \u1090 \u1086 \u1074 !*\
+\
+\uc0\u1042 \u1099 \u1073 \u1077 \u1088 \u1080 , \u1095 \u1090 \u1086  \u1090 \u1077 \u1073 \u1103  \u1080 \u1085 \u1090 \u1077 \u1088 \u1077 \u1089 \u1091 \u1077 \u1090 :\
+\'95 \uc0\u55358 \u56792  *\u1055 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 * \'97 \u1091 \u1087 \u1088 \u1072 \u1078 \u1085 \u1077 \u1085 \u1080 \u1103  \u1076 \u1083 \u1103  \u1087 \u1088 \u1086 \u1088 \u1072 \u1073 \u1086 \u1090 \u1082 \u1080 \
+\'95 \uc0\u55357 \u56522  *\u1058 \u1077 \u1089 \u1090 \u1099 * \'97 \u1089 \u1072 \u1084 \u1086 \u1076 \u1080 \u1072 \u1075 \u1085 \u1086 \u1089 \u1090 \u1080 \u1082 \u1072  \u1080  \u1080 \u1085 \u1089 \u1072 \u1081 \u1090 \u1099 \
+\
+*\uc0\u1054 \u1073 \u1085 \u1086 \u1074 \u1083 \u1103 \u1077 \u1090 \u1089 \u1103  \u1088 \u1077 \u1075 \u1091 \u1083 \u1103 \u1088 \u1085 \u1086 .* \u1053 \u1086 \u1074 \u1099 \u1077  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080  \'97 \u1074  \u1089 \u1074 \u1077 \u1078 \u1080 \u1093  \u1087 \u1086 \u1089 \u1090 \u1072 \u1093  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 \u1077 !"""\
+        \
+        bot.edit_message_text(\
+            welcome_text,\
+            call.message.chat.id,\
+            call.message.message_id,\
+            parse_mode='Markdown',\
+            reply_markup=main_menu()\
+        )\
+    else:\
+        bot.answer_callback_query(\
+            call.id,\
+            "\uc0\u10060  \u1055 \u1086 \u1076 \u1087 \u1080 \u1089 \u1082 \u1072  \u1085 \u1077  \u1085 \u1072 \u1081 \u1076 \u1077 \u1085 \u1072 . \u1055 \u1086 \u1078 \u1072 \u1083 \u1091 \u1081 \u1089 \u1090 \u1072 , \u1087 \u1086 \u1076 \u1087 \u1080 \u1096 \u1080 \u1089 \u1100  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083  \u1080  \u1085 \u1072 \u1078 \u1084 \u1080  \u1082 \u1085 \u1086 \u1087 \u1082 \u1091  \u1077 \u1097 \u1077  \u1088 \u1072 \u1079 !",\
+            show_alert=True\
+        )\
+\
+# \uc0\u1054 \u1073 \u1088 \u1072 \u1073 \u1086 \u1090 \u1082 \u1072  \u1074 \u1099 \u1073 \u1086 \u1088 \u1072  \u1082 \u1072 \u1090 \u1077 \u1075 \u1086 \u1088 \u1080 \u1080 \
+@bot.callback_query_handler(func=lambda call: call.data.startswith('category_'))\
+def category_callback(call):\
+    category = call.data.replace('category_', '')\
+    \
+    if category == 'practices':\
+        text = "\uc0\u55358 \u56792  *\u1044 \u1086 \u1089 \u1090 \u1091 \u1087 \u1085 \u1099 \u1077  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 :*\\n\\n\u1042 \u1099 \u1073 \u1077 \u1088 \u1080  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1091  \u1076 \u1083 \u1103  \u1074 \u1099 \u1087 \u1086 \u1083 \u1085 \u1077 \u1085 \u1080 \u1103 :"\
+        markup = practices_menu()\
+    elif category == 'tests':\
+        text = "\uc0\u55357 \u56522  *\u1044 \u1086 \u1089 \u1090 \u1091 \u1087 \u1085 \u1099 \u1077  \u1090 \u1077 \u1089 \u1090 \u1099 :*\\n\\n\u1042 \u1099 \u1073 \u1077 \u1088 \u1080  \u1090 \u1077 \u1089 \u1090  \u1076 \u1083 \u1103  \u1089 \u1072 \u1084 \u1086 \u1076 \u1080 \u1072 \u1075 \u1085 \u1086 \u1089 \u1090 \u1080 \u1082 \u1080 :"\
+        markup = tests_menu()\
+    \
+    bot.edit_message_text(\
+        text,\
+        call.message.chat.id,\
+        call.message.message_id,\
+        parse_mode='Markdown',\
+        reply_markup=markup\
+    )\
+\
+# \uc0\u1054 \u1073 \u1088 \u1072 \u1073 \u1086 \u1090 \u1082 \u1072  \u1074 \u1099 \u1073 \u1086 \u1088 \u1072  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 /\u1090 \u1077 \u1089 \u1090 \u1072 \
+@bot.callback_query_handler(func=lambda call: call.data.startswith('item_'))\
+def item_callback(call):\
+    item_id = call.data.replace('item_', '')\
+    item = PRACTICES.get(item_id)\
+    \
+    if item:\
+        category_icon = "\uc0\u55358 \u56792 " if item['category'] == 'practices' else "\u55357 \u56522 "\
+        category_text = "\uc0\u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1077 " if item['category'] == 'practices' else "\u1090 \u1077 \u1089 \u1090 \u1077 "\
+        \
+        item_text = f"""\{category_icon\} *\{item['name']\}*\
+\
+\uc0\u1058 \u1074 \u1086 \u1081  \u1084 \u1072 \u1090 \u1077 \u1088 \u1080 \u1072 \u1083  \u1075 \u1086 \u1090 \u1086 \u1074 ! \u1055 \u1077 \u1088 \u1077 \u1093 \u1086 \u1076 \u1080  \u1087 \u1086  \u1089 \u1089 \u1099 \u1083 \u1082 \u1077 , \u1095 \u1090 \u1086 \u1073 \u1099  \u1085 \u1072 \u1095 \u1072 \u1090 \u1100  \u1088 \u1072 \u1073 \u1086 \u1090 \u1091 .\
+\
+*\uc0\u1042 \u1072 \u1078 \u1085 \u1086 :* \u1045 \u1089 \u1083 \u1080  \u1084 \u1072 \u1090 \u1077 \u1088 \u1080 \u1072 \u1083  \u1085 \u1077  \u1086 \u1090 \u1082 \u1088 \u1099 \u1074 \u1072 \u1077 \u1090 \u1089 \u1103 , \u1087 \u1088 \u1086 \u1074 \u1077 \u1088 \u1100  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1082 \u1091  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 .\
+\
+[\uc0\u55357 \u56599  \u1055 \u1077 \u1088 \u1077 \u1081 \u1090 \u1080  \u1082  \{category_text\}](\{item['link']\})"""\
+        \
+        # \uc0\u1050 \u1085 \u1086 \u1087 \u1082 \u1080  \u1076 \u1083 \u1103  \u1085 \u1072 \u1074 \u1080 \u1075 \u1072 \u1094 \u1080 \u1080 \
+        markup = types.InlineKeyboardMarkup(row_width=2)\
+        \
+        if item['category'] == 'practices':\
+            back_btn = types.InlineKeyboardButton("\uc0\u9664 \u65039  \u1050  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1072 \u1084 ", callback_data="category_practices")\
+        else:\
+            back_btn = types.InlineKeyboardButton("\uc0\u9664 \u65039  \u1050  \u1090 \u1077 \u1089 \u1090 \u1072 \u1084 ", callback_data="category_tests")\
+        \
+        main_btn = types.InlineKeyboardButton("\uc0\u55356 \u57312  \u1043 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 ", callback_data="back_to_main")\
+        markup.add(back_btn, main_btn)\
+        \
+        bot.edit_message_text(\
+            item_text,\
+            call.message.chat.id,\
+            call.message.message_id,\
+            parse_mode='Markdown',\
+            disable_web_page_preview=False,\
+            reply_markup=markup\
+        )\
+    else:\
+        bot.answer_callback_query(call.id, "\uc0\u1052 \u1072 \u1090 \u1077 \u1088 \u1080 \u1072 \u1083  \u1085 \u1077  \u1085 \u1072 \u1081 \u1076 \u1077 \u1085 ")\
+\
+# \uc0\u1048 \u1085 \u1092 \u1086 \u1088 \u1084 \u1072 \u1094 \u1080 \u1103  \u1086  \u1082 \u1072 \u1085 \u1072 \u1083 \u1077 \
+@bot.callback_query_handler(func=lambda call: call.data == "info")\
+def info_callback(call):\
+    info_text = """\uc0\u8505 \u65039  *\u1054  \u1082 \u1072 \u1085 \u1072 \u1083 \u1077 *\
+\
+\uc0\u1069 \u1090 \u1086  \u1087 \u1088 \u1086 \u1089 \u1090 \u1088 \u1072 \u1085 \u1089 \u1090 \u1074 \u1086  \u1076 \u1083 \u1103  \u1090 \u1074 \u1086 \u1077 \u1075 \u1086  \u1088 \u1086 \u1089 \u1090 \u1072  \u1080  \u1090 \u1088 \u1072 \u1085 \u1089 \u1092 \u1086 \u1088 \u1084 \u1072 \u1094 \u1080 \u1080 . \u1047 \u1076 \u1077 \u1089 \u1100  \u1090 \u1099  \u1085 \u1072 \u1081 \u1076 \u1077 \u1096 \u1100 :\
+\'95 \uc0\u1055 \u1089 \u1080 \u1093 \u1086 \u1083 \u1086 \u1075 \u1080 \u1095 \u1077 \u1089 \u1082 \u1080 \u1077  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 \
+\'95 \uc0\u1058 \u1077 \u1089 \u1090 \u1099  \u1076 \u1083 \u1103  \u1089 \u1072 \u1084 \u1086 \u1076 \u1080 \u1072 \u1075 \u1085 \u1086 \u1089 \u1090 \u1080 \u1082 \u1080 \
+\'95 \uc0\u1058 \u1077 \u1093 \u1085 \u1080 \u1082 \u1080  \u1087 \u1086  \u1088 \u1072 \u1073 \u1086 \u1090 \u1077  \u1089  \u1086 \u1090 \u1085 \u1086 \u1096 \u1077 \u1085 \u1080 \u1103 \u1084 \u1080 \
+\'95 \uc0\u1053 \u1077 \u1081 \u1088 \u1086 \u1087 \u1077 \u1088 \u1077 \u1074 \u1086 \u1088 \u1086 \u1090 \u1099  \'97 \u1084 \u1086 \u1097 \u1085 \u1099 \u1077  \u1091 \u1087 \u1088 \u1072 \u1078 \u1085 \u1077 \u1085 \u1080 \u1103  \u1076 \u1083 \u1103  \u1087 \u1077 \u1088 \u1077 \u1087 \u1088 \u1086 \u1096 \u1080 \u1074 \u1082 \u1080  \u1089 \u1094 \u1077 \u1085 \u1072 \u1088 \u1080 \u1077 \u1074 \
+\
+\uc0\u55357 \u56546  *\u1054 \u1089 \u1085 \u1086 \u1074 \u1085 \u1086 \u1081  \u1082 \u1072 \u1085 \u1072 \u1083 :* @netvoipsiholog\
+\
+*\uc0\u1054 \u1073 \u1085 \u1086 \u1074 \u1083 \u1103 \u1077 \u1090 \u1089 \u1103  \u1088 \u1077 \u1075 \u1091 \u1083 \u1103 \u1088 \u1085 \u1086 .* \u1055 \u1086 \u1076 \u1087 \u1080 \u1089 \u1099 \u1074 \u1072 \u1081 \u1089 \u1103 , \u1095 \u1090 \u1086 \u1073 \u1099  \u1085 \u1077  \u1087 \u1088 \u1086 \u1087 \u1091 \u1089 \u1090 \u1080 \u1090 \u1100  \u1085 \u1086 \u1074 \u1099 \u1077  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 !"""\
+    \
+    markup = types.InlineKeyboardMarkup()\
+    channel_btn = types.InlineKeyboardButton(\
+        "\uc0\u55357 \u56546  \u1055 \u1077 \u1088 \u1077 \u1081 \u1090 \u1080  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 ", \
+        url=f"https://t.me/\{CHANNEL_ID.replace('@', '')\}"\
+    )\
+    back_btn = types.InlineKeyboardButton("\uc0\u9664 \u65039  \u1042  \u1075 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 ", callback_data="back_to_main")\
+    markup.add(channel_btn)\
+    markup.add(back_btn)\
+    \
+    bot.edit_message_text(\
+        info_text,\
+        call.message.chat.id,\
+        call.message.message_id,\
+        parse_mode='Markdown',\
+        reply_markup=markup\
+    )\
+\
+# \uc0\u1042 \u1086 \u1079 \u1074 \u1088 \u1072 \u1090  \u1074  \u1075 \u1083 \u1072 \u1074 \u1085 \u1086 \u1077  \u1084 \u1077 \u1085 \u1102 \
+@bot.callback_query_handler(func=lambda call: call.data == "back_to_main")\
+def back_to_main(call):\
+    text = """\uc0\u55358 \u56813  *\u1053 \u1072 \u1074 \u1080 \u1075 \u1072 \u1090 \u1086 \u1088  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082  \u1080  \u1090 \u1077 \u1089 \u1090 \u1086 \u1074 *\
+\
+\uc0\u1042 \u1099 \u1073 \u1077 \u1088 \u1080 , \u1095 \u1090 \u1086  \u1090 \u1077 \u1073 \u1103  \u1080 \u1085 \u1090 \u1077 \u1088 \u1077 \u1089 \u1091 \u1077 \u1090 :\
+\'95 \uc0\u55358 \u56792  *\u1055 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 * \'97 \u1091 \u1087 \u1088 \u1072 \u1078 \u1085 \u1077 \u1085 \u1080 \u1103  \u1076 \u1083 \u1103  \u1087 \u1088 \u1086 \u1088 \u1072 \u1073 \u1086 \u1090 \u1082 \u1080 \
+\'95 \uc0\u55357 \u56522  *\u1058 \u1077 \u1089 \u1090 \u1099 * \'97 \u1089 \u1072 \u1084 \u1086 \u1076 \u1080 \u1072 \u1075 \u1085 \u1086 \u1089 \u1090 \u1080 \u1082 \u1072  \u1080  \u1080 \u1085 \u1089 \u1072 \u1081 \u1090 \u1099 \
+\
+*\uc0\u1054 \u1073 \u1085 \u1086 \u1074 \u1083 \u1103 \u1077 \u1090 \u1089 \u1103  \u1088 \u1077 \u1075 \u1091 \u1083 \u1103 \u1088 \u1085 \u1086 .* \u1053 \u1086 \u1074 \u1099 \u1077  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080  \'97 \u1074  \u1089 \u1074 \u1077 \u1078 \u1080 \u1093  \u1087 \u1086 \u1089 \u1090 \u1072 \u1093  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 \u1077 !"""\
+    \
+    bot.edit_message_text(\
+        text,\
+        call.message.chat.id,\
+        call.message.message_id,\
+        parse_mode='Markdown',\
+        reply_markup=main_menu()\
+    )\
+\
+# \uc0\u1050 \u1086 \u1084 \u1072 \u1085 \u1076 \u1072  /menu \u1076 \u1083 \u1103  \u1073 \u1099 \u1089 \u1090 \u1088 \u1086 \u1075 \u1086  \u1076 \u1086 \u1089 \u1090 \u1091 \u1087 \u1072 \
+@bot.message_handler(commands=['menu'])\
+def show_menu(message):\
+    user_id = message.from_user.id\
+    \
+    if check_subscription(user_id):\
+        text = """\uc0\u55358 \u56813  *\u1053 \u1072 \u1074 \u1080 \u1075 \u1072 \u1090 \u1086 \u1088  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082  \u1080  \u1090 \u1077 \u1089 \u1090 \u1086 \u1074 *\
+\
+\uc0\u1042 \u1099 \u1073 \u1077 \u1088 \u1080 , \u1095 \u1090 \u1086  \u1090 \u1077 \u1073 \u1103  \u1080 \u1085 \u1090 \u1077 \u1088 \u1077 \u1089 \u1091 \u1077 \u1090 :\
+\'95 \uc0\u55358 \u56792  *\u1055 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1080 * \'97 \u1091 \u1087 \u1088 \u1072 \u1078 \u1085 \u1077 \u1085 \u1080 \u1103  \u1076 \u1083 \u1103  \u1087 \u1088 \u1086 \u1088 \u1072 \u1073 \u1086 \u1090 \u1082 \u1080 \
+\'95 \uc0\u55357 \u56522  *\u1058 \u1077 \u1089 \u1090 \u1099 * \'97 \u1089 \u1072 \u1084 \u1086 \u1076 \u1080 \u1072 \u1075 \u1085 \u1086 \u1089 \u1090 \u1080 \u1082 \u1072  \u1080  \u1080 \u1085 \u1089 \u1072 \u1081 \u1090 \u1099 """\
+        \
+        bot.send_message(\
+            message.chat.id, \
+            text,\
+            parse_mode='Markdown',\
+            reply_markup=main_menu()\
+        )\
+    else:\
+        bot.send_message(\
+            message.chat.id,\
+            "\uc0\u55357 \u56594  *\u1044 \u1083 \u1103  \u1076 \u1086 \u1089 \u1090 \u1091 \u1087 \u1072  \u1082  \u1084 \u1072 \u1090 \u1077 \u1088 \u1080 \u1072 \u1083 \u1072 \u1084  \u1085 \u1091 \u1078 \u1085 \u1086  \u1087 \u1086 \u1076 \u1087 \u1080 \u1089 \u1072 \u1090 \u1100 \u1089 \u1103  \u1085 \u1072  \u1082 \u1072 \u1085 \u1072 \u1083 !*\\n\\n\u1055 \u1086 \u1076 \u1087 \u1080 \u1096 \u1080 \u1089 \u1100  \u1080  \u1085 \u1072 \u1078 \u1084 \u1080  /start",\
+            parse_mode='Markdown',\
+            reply_markup=subscription_button()\
+        )\
+\
+# \uc0\u1047 \u1072 \u1087 \u1091 \u1089 \u1082  \u1073 \u1086 \u1090 \u1072 \
+print("\uc0\u55357 \u56960  \u1041 \u1086 \u1090  \u1089  \u1087 \u1088 \u1072 \u1082 \u1090 \u1080 \u1082 \u1072 \u1084 \u1080  \u1080  \u1090 \u1077 \u1089 \u1090 \u1072 \u1084 \u1080  \u1079 \u1072 \u1087 \u1091 \u1097 \u1077 \u1085 ...")\
+bot.infinity_polling()}
